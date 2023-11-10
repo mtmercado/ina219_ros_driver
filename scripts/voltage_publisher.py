@@ -6,6 +6,8 @@ from std_msgs.msg import Float32
 
 from ina219_driver import INA219Driver
 
+MIN_THRESH = 11.2 #V
+
 def publish_battery_voltage():
     rospy.init_node('battery_voltage_publisher')
     pub = rospy.Publisher('battery_voltage', Float32, queue_size=10)
@@ -22,7 +24,10 @@ def publish_battery_voltage():
         msg.data = voltage
         pub.publish(msg)
 
-        rospy.loginfo("Battery Voltage: %.2f V" % voltage)
+        if voltage <= MIN_THRESH:
+            rospy.logwarn("LOW VOLTAGE WARNING: %.2f V" % voltage)
+        else:
+            rospy.logdebug("Battery Voltage: %.2f V" % voltage)
 
         rate.sleep()
 
