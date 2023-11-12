@@ -33,4 +33,11 @@ class INA219Driver():
         bus_voltage = self.ina219.bus_voltage  # voltage on V- (load side)
         shunt_voltage = self.ina219.shunt_voltage  # voltage between V+ and V- across the shunt
         volt = bus_voltage + shunt_voltage
-        return volt
+        return volt #V
+
+    def get_current(self) -> float: 
+        return self.ina219.current #mA
+
+    def get_power(self) -> float:
+        power = self.ina219.bus_voltage * (self.ina219.current / 1000)
+        return power #Watt
