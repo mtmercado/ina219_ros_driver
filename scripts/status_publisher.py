@@ -7,7 +7,7 @@ from geometry_msgs.msg import Vector3
 from ina219_driver import INA219Driver
 
 MIN_THRESH = 11.2 #V
-LOG_LEVEL = rospy.DEBUG
+LOG_LEVEL = rospy.INFO
 
 def publish_battery_status():
     rospy.init_node('battery_status_publisher', log_level=LOG_LEVEL)
